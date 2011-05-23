@@ -77,3 +77,12 @@
 	font-weight:bold;
 	padding:5px 10px;
 	}
+.no-rgba  .appriseOverlay{
+	opacity: .30; 
+	filter: alpha(opacity = 30) !important; 
+	background: #000; 
+	zoom: 1;
+}
+.no-borderradius .appriseOuter{
+	border:1px solid #888;
+}
