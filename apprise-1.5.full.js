@@ -49,24 +49,24 @@ function apprise(string, args, callback)
 		{ $('.appriseOuter').css('top', '100px').fadeIn(200); }
     
     if(args)
-    	{
-    	if(args['input'] || args['password'])
-    		{
-			var inputType = args['password']?"password":"text";
-			if (inputType=="password"){
-				inputValue = typeof(args['password'])=='string'?args['password']:"";
-			}else{
-				inputValue = typeof(args['input'])=='string'?args['input']:"";
-			}
-			$('.appriseInner').append('<div class="aInput"><input type="'+inputType+'" class="aTextbox" t="aTextbox" value="'+inputValue+'" /></div>');
-			$('.aTextbox').focus();
-    		}
-    	}
-		
+	{
+	if(args['input'] || args['password'])
+		{
+		var inputType = args['password']?"password":"text";
+		if (inputType=="password"){
+			inputValue = typeof(args['password'])=='string'?args['password']:"";
+		}else{
+			inputValue = typeof(args['input'])=='string'?args['input']:"";
+		}
+		$('.appriseInner').append('<div class="aInput"><input type="'+inputType+'" class="aTextbox" t="aTextbox" value="'+inputValue+'" /></div>');
+		$('.aTextbox').focus();
+		}
+	}
+	
     $('.appriseInner').append('<div class="aButtons"></div>');
     if(args)
     	{
-		if(args['confirm'] || args['input'] || args['password'] )
+		if(args['confirm'] || args['input'] || args['password'])
 			{ 
 			$('.aButtons').append('<button value="ok">'+args['textOk']+'</button>');
 			$('.aButtons').append('<button value="cancel">'+args['textCancel']+'</button>'); 
