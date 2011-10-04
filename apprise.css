@@ -86,3 +86,18 @@
 .no-borderradius .appriseOuter{
 	border:1px solid #888;
 }
+.appriseOverlay {
+background-color:#222222;
+border:medium none;
+cursor:wait;
+height:100%;
+left:0;
+margin:0;
+padding:0;
+position:fixed;
+top:0;
+width:100%;
+z-index:1000;
+filter:alpha(opacity=70);
+opacity:0.70; 
+}
