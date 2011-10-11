@@ -75,7 +75,7 @@ function apprise(string, args, callback) {
     // get center
     if (args) {
         if (args['position'] && args['position'] === 'center') {
-            posTop = (aHeight - apprise.height()) / 2;
+            posTop = ($(window).height() - apprise.height()) / 2;
         }
 
         if (args['animate']) {
