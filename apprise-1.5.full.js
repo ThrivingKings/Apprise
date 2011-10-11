@@ -34,7 +34,7 @@ function apprise(string, args, callback) {
 
     overlay.css({ height: aHeight, width: aWidth })
 		.appendTo('body')
-        .fadeIn(100);
+        .fadeIn(100,function(){$(this).css('filter','alpha(opacity=70)');});
 
     apprise.appendTo('body');
 
@@ -106,6 +106,7 @@ function apprise(string, args, callback) {
         overlay.remove();
         apprise.remove();
         if (callback) {
+            $(this).text("");
             var wButton = $(this).attr("value");
             if (wButton == 'ok') {
                 if (args) {
