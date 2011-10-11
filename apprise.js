@@ -1,4 +1,4 @@
-// Apprise 1.5 by Daniel Raftery
+// Apprise 1.5.1 by Daniel Raftery
 // http://thrivingkings.com/apprise
 //
 // Button text added by Adam Bezulski
