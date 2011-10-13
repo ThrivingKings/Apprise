@@ -5,7 +5,7 @@
 //
 // Cached jQuery variables, position center added by Josiah Ruddell
 
-function apprise(string, args, callback) {
+function apprise(string, args, callback, element) {
     var default_args =
 		{
 		    'confirm': false, 		// Ok and Cancel buttons
@@ -110,15 +110,31 @@ function apprise(string, args, callback) {
             var wButton = $(this).attr("value");
             if (wButton == 'ok') {
                 if (args) {
-                    if (args['input']) { callback(aText); }
-                    else { callback(true); }
+                    if (args['input']) { 
+                      if(element)
+                        callback(aText, element); 
+                      else
+                        callback(aText); 
+                    }
+                    else { 
+                      if(element)
+                        callback(true, element); 
+                      else
+                        callback(true); 
+                    }
                 }
                 else {
-                    callback(true); 
+                    if(element)
+                      callback(true, element); 
+                    else
+                      callback(true); 
                 }
             }
             else if (wButton == 'cancel') {
-                callback(false); 
+                if(element)
+                  callback(false, element); 
+                else
+                  callback(false); 
             }
         }
     });
