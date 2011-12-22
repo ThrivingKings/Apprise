@@ -1,0 +1,94 @@
+/**
+ * Apprise 1.5.2 - The attractive alert alternative for jQuery.
+ * http://thrivingkings.com/apprise
+ * Author: Daniel Raftery <info@thrivingkings.com>
+ * License: Creative Commons Attribution-ShareAlike 2.5 Generic (CC BY-SA 2.5)
+ *     <http://creativecommons.org/licenses/by-sa/2.5/>
+ */
+.appriseOverlay {
+  background-color: #000;
+  border: 0;
+  display: none;
+  filter: alpha(opacity=30) !important;
+  height: 100%;
+  left: 0;
+  margin: 0;
+  opacity: .3;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99999998;
+  zoom: 1;
+}
+
+.appriseOuter {
+  background-color: #eee;
+  -khtml-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid #fff;
+  -moz-box-shadow: 0 3px 7px #333;
+  -webkit-box-shadow: 0 3px 7px #333;
+  box-shadow: 0 3px 7px #333;
+  display: none;
+  max-width: 75%;
+  min-height: 50px;
+  min-width: 200px;
+  position: fixed;
+  z-index: 99999999;
+}
+
+.appriseInner {
+  color: #333;
+  padding: 20px;
+  text-shadow: 0 1px 0 #fff;
+}
+
+.appriseInner button {
+  background: -moz-linear-gradient(100% 100% 90deg, #eee, #d5d5d5);
+  background: -o-linear-gradient(#eee, #d5d5d5);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eee), to(#d5d5d5));
+  background: -webkit-linear-gradient(#eee, #d5d5d5);
+  -khtml-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #bbb;
+  -moz-box-shadow: 0 1px 2px #ccc;
+  -webkit-box-shadow: 0 1px 2px #ccc;
+  box-shadow: 0 1px 2px #ccc;
+  color: #232d3d;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0 3px;
+  padding: 4px 10px;
+  text-shadow: 0 1px 0 #fff;
+}
+
+.appriseInner button:hover {
+  color: #d85054;
+}
+
+.aButtons,
+.aInput {
+  margin: 20px 10px 0 10px;
+  text-align: center;
+}
+
+.aTextbox {
+  -khtml-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+  -moz-box-shadow: 0 1px 0 #fff;
+  -webkit-box-shadow: 0 1px 0 #fff;
+  box-shadow: 0 1px 0 #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px 10px;
+  width: 180px;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Jasmine Spec Runner: Apprise</title>
+
+  <link rel="stylesheet" type="text/css" href="lib/jasmine-1.1.0/jasmine.css">
+  <script type="text/javascript" src="lib/jasmine-1.1.0/jasmine.js"></script>
+  <script type="text/javascript" src="lib/jasmine-1.1.0/jasmine-html.js"></script>
+  <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+  <!-- source files -->
+  <script type="text/javascript" src="../src/apprise.js"></script>
+  <link rel="stylesheet" type="text/css" href="../src/apprise.css">
+
+  <!-- spec files -->
+  <script type="text/javascript" src="apprise-spec.js"></script>
+
+  <!-- init the runner -->
+  <script type="text/javascript">
+    (function() {
+      var jasmineEnv = jasmine.getEnv();
+      jasmineEnv.updateInterval = 1000;
+
+      var trivialReporter = new jasmine.TrivialReporter();
+
+      jasmineEnv.addReporter(trivialReporter);
+
+      jasmineEnv.specFilter = function(spec) {
+        return trivialReporter.specFilter(spec);
+      };
+
+      var currentWindowOnload = window.onload;
+
+      window.onload = function() {
+        if (currentWindowOnload) {
+          currentWindowOnload();
+        }
+        execJasmine();
+      };
+
+      function execJasmine() {
+        jasmineEnv.execute();
+      }
+
+    })();
+  </script>
+</head>
+
+<body>
+</body>
+</html>
