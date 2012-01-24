@@ -14,7 +14,11 @@
                             apprise("Apprise seems to be working properly");
                         });
                         $("#appriseAlertInput").click(function(event){
-                            apprise("What's your name?", {'input':true});
+                            apprise("What's your name?", 
+                                {'input':true},
+                                function(value){
+                                    apprise("Pleased to meet you " + value);
+                                });
                         });
                         $("#appriseAlertValidatedInput").click(function(event){
                                 apprise("What's your name?", {
@@ -23,7 +27,7 @@
                                                 return value=='test';
                                         }},
                                         function(value){
-                                            console.log('Callback received ' + value);
+                                            apprise("Pleased to meet you " + value);
                                         }
                                 );
                         });
