@@ -98,8 +98,34 @@ function apprise(string, args, callback) {
 
     var aText = $('.aTextbox').val();
     if (!aText) { aText = false; }
+    
+    var validator = false;
+    var validState = true;
+    if(args && args['input'] && args['validation']){
+        validator = args['validation'];        
+        validateATextbox();
+    }
+
+    function validateATextbox(){
+            if(validator($('.aTextbox').val())){
+                    aText = $('.aTextbox').val();
+                    validState = true;
+                    $('.aTextbox').removeClass('aInvalid');
+            }else{
+                    aText = '';
+                    validState = false;
+                    $('.aTextbox').addClass('aInvalid');
+            }
+            console.log(validState);
+    }
+
     $('.aTextbox').keyup(function () { 
-            aText = $(this).val(); 
+            if(validator==false){
+                    //just assign the value
+                    aText = $(this).val(); 
+            }else{
+                    validateATextbox()
+            }
     });
 
     $('.aButtons > button').click(function () {
@@ -110,8 +136,19 @@ function apprise(string, args, callback) {
             var wButton = $(this).attr("value");
             if (wButton == 'ok') {
                 if (args) {
-                    if (args['input']) { callback(aText); }
-                    else { callback(true); }
+                    if (args['input']) {
+                        if(validator==false){
+                            callback(aText); 
+                        }else{
+                            if(validState==true){
+                                callback(aText);
+                            }else{
+                                console.log('Apprise input contained invalid text');
+                            }
+                        } 
+                    } else { 
+                            callback(true); 
+                    }
                 }
                 else {
                     callback(true); 
@@ -123,7 +160,7 @@ function apprise(string, args, callback) {
         }
     });
 
-    if(args && (args['input']) ){
+    if(args && args['input'] ){
         $('.aTextbox').focus();
     }
 }

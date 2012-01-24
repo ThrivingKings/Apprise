@@ -13,6 +13,20 @@
                         $("#appriseAlert").click(function(event){
                             apprise("Apprise seems to be working properly");
                         });
+                        $("#appriseAlertInput").click(function(event){
+                            apprise("What's your name?", {'input':true});
+                        });
+                        $("#appriseAlertValidatedInput").click(function(event){
+                                apprise("What's your name?", {
+                                        'input':'test', 
+                                        'validation':function(value){
+                                                return value=='test';
+                                        }},
+                                        function(value){
+                                            console.log('Callback received ' + value);
+                                        }
+                                );
+                        });
                     });
                 </script>
         </head>
@@ -22,6 +36,8 @@
                 <ul>
                     <li><button id="plainAlert">Plain Alert</button></li>
                     <li><button id="appriseAlert">Apprise Alert</button></li>
+                    <li><button id="appriseAlertInput">Apprise Alert with Text Input</button></li>
+                    <li><button id="appriseAlertValidatedInput">Apprise Alert with Validated Text Input</button></li>
                 </ul>
         </body>
 </html>

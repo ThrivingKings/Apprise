@@ -101,3 +101,6 @@ z-index:1000;
 filter:alpha(opacity=70);
 opacity:0.70; 
 }
+.aInvalid {
+background: #ff0000;
+}
