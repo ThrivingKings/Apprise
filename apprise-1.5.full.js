@@ -57,16 +57,16 @@ function apprise(string, args, callback) {
     inner.append(buttons);
     if (args) {
         if (args['confirm'] || args['input']) {
-            buttons.append('<button value="ok">' + args['textOk'] + '</button>');
+            buttons.append('<button class="aOkButton" value="ok">' + args['textOk'] + '</button>');
             buttons.append('<button value="cancel">' + args['textCancel'] + '</button>');
         }
         else if (args['verify']) {
-            buttons.append('<button value="ok">' + args['textYes'] + '</button>');
+            buttons.append('<button class="aOkButton" value="ok">' + args['textYes'] + '</button>');
             buttons.append('<button value="cancel">' + args['textNo'] + '</button>');
         }
-        else { buttons.append('<button value="ok">' + args['textOk'] + '</button>'); }
+        else { buttons.append('<button class="aOkButton" value="ok">' + args['textOk'] + '</button>'); }
     }
-    else { buttons.append('<button value="ok">Ok</button>'); }
+    else { buttons.append('<button class="aOkButton" value="ok">Ok</button>'); }
 
     // position after adding buttons
 
@@ -111,10 +111,12 @@ function apprise(string, args, callback) {
                     aText = $('.aTextbox').val();
                     validState = true;
                     $('.aTextbox').removeClass('aInvalid');
+                    $('.aOkButton').removeAttr("disabled");
             }else{
                     aText = '';
                     validState = false;
                     $('.aTextbox').addClass('aInvalid');
+                    $('.aOkButton').attr("disabled", "disabled");
             }
             console.log(validState);
     }
