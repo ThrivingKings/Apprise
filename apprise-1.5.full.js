@@ -51,7 +51,6 @@ function apprise(string, args, callback) {
             else {
                 inner.append('<div class="aInput"><input type="text" class="aTextbox" t="aTextbox" /></div>');
             }
-            $('.aTextbox').focus();
         }
     }
 
@@ -99,8 +98,9 @@ function apprise(string, args, callback) {
 
     var aText = $('.aTextbox').val();
     if (!aText) { aText = false; }
-    $('.aTextbox').keyup(function ()
-    { aText = $(this).val(); });
+    $('.aTextbox').keyup(function () { 
+            aText = $(this).val(); 
+    });
 
     $('.aButtons > button').click(function () {
         overlay.remove();
@@ -122,4 +122,8 @@ function apprise(string, args, callback) {
             }
         }
     });
+
+    if(args && (args['input']) ){
+        $('.aTextbox').focus();
+    }
 }
