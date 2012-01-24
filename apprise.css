@@ -60,6 +60,9 @@
 	{
 	color:#d85054;
 	}
+.appriseInner .aError {
+color:red;
+}
 .aButtons, .aInput
 	{
 	margin:20px 10px 0px 10px;

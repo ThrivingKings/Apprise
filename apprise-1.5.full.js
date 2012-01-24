@@ -46,10 +46,10 @@ function apprise(string, args, callback) {
     if (args) {
         if (args['input']) {
             if (typeof (args['input']) == 'string') {
-                inner.append('<div class="aInput"><input type="text" class="aTextbox" t="aTextbox" value="' + args['input'] + '" /></div>');
+                inner.append('<div class="aInput"><div class="aError"><span id="aErrorMessage"></span></div><input type="text" class="aTextbox" t="aTextbox" value="' + args['input'] + '" /></div>');
             }
             else {
-                inner.append('<div class="aInput"><input type="text" class="aTextbox" t="aTextbox" /></div>');
+                inner.append('<div class="aInput"><div class="aError"><span id="aErrorMessage"></span></div><input type="text" class="aTextbox" t="aTextbox" /></div>');
             }
         }
     }
@@ -107,16 +107,19 @@ function apprise(string, args, callback) {
     }
 
     function validateATextbox(){
-            if(validator($('.aTextbox').val())){
+            var validationResult = validator($('.aTextbox').val());
+            if(validationResult == 'true'){
                     aText = $('.aTextbox').val();
                     validState = true;
                     $('.aTextbox').removeClass('aInvalid');
                     $('.aOkButton').removeAttr("disabled");
+                    $('#aErrorMessage').text('');
             }else{
                     aText = '';
                     validState = false;
                     $('.aTextbox').addClass('aInvalid');
                     $('.aOkButton').attr("disabled", "disabled");
+                    $('#aErrorMessage').text(validationResult);
             }
             console.log(validState);
     }

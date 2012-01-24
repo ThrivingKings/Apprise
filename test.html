@@ -24,7 +24,11 @@
                                 apprise("What's your name?", {
                                         'input':'test', 
                                         'validation':function(value){
-                                                return value=='test';
+                                                if(value=='test'){
+                                                        return 'true';
+                                                }else{
+                                                        return 'type "test" in the box';
+                                                }
                                         }},
                                         function(value){
                                             apprise("Pleased to meet you " + value);
