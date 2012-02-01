@@ -121,7 +121,7 @@ function apprise(string, args, callback) {
                     $('.aOkButton').attr("disabled", "disabled");
                     $('#aErrorMessage').text(validationResult);
             }
-            console.log(validState);
+            //console.log(validState);
     }
 
     $('.aTextbox').keyup(function () { 
@@ -147,9 +147,9 @@ function apprise(string, args, callback) {
                         }else{
                             if(validState==true){
                                 callback(aText);
-                            }else{
+                            }/*else{
                                 console.log('Apprise input contained invalid text');
-                            }
+                            }*/
                         } 
                     } else { 
                             callback(true); 
