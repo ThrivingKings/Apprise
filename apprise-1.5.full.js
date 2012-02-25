@@ -48,6 +48,9 @@ function apprise(string, args, callback) {
             if (typeof (args['input']) == 'string') {
                 inner.append('<div class="aInput"><input type="text" class="aTextbox" t="aTextbox" value="' + args['input'] + '" /></div>');
             }
+            if (typeof (args['input']) == 'object') {
+                inner.append($('<div class="aInput"></div>').append(args['input']));
+            }
             else {
                 inner.append('<div class="aInput"><input type="text" class="aTextbox" t="aTextbox" /></div>');
             }
