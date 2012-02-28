@@ -16,12 +16,19 @@ function apprise(string, args, callback) {
 		    'textCancel': 'Cancel', // Cancel button default text
 		    'textYes': 'Yes', 	// Yes button default text
 		    'textNo': 'No', 	// No button default text
-		    'position': 'center'// position center (y-axis) any other option will default to 100 top
+		    'position': 'center',// position center (y-axis) any other option will default to 100 top
+            'initCallback': function($inner) {} // this function is called immediately after DOM manipulation is finished
 		}
 
-    if (args) {
+    if (args) 
+    {
         for (var index in default_args)
-        { if (typeof args[index] == "undefined") args[index] = default_args[index]; }
+        { 
+            if (typeof args[index] == "undefined") 
+            {
+                args[index] = default_args[index]; 
+            }
+        }
     }
 
     var aHeight = $(document).height(),
@@ -48,7 +55,7 @@ function apprise(string, args, callback) {
             if (typeof (args['input']) == 'string') {
                 inner.append('<div class="aInput"><input type="text" class="aTextbox" t="aTextbox" value="' + args['input'] + '" /></div>');
             }
-            if (typeof (args['input']) == 'object') {
+            else if (typeof (args['input']) == 'object') {
                 inner.append($('<div class="aInput"></div>').append(args['input']));
             }
             else {
@@ -125,4 +132,6 @@ function apprise(string, args, callback) {
             }
         }
     });
+
+    args['initCallback'](apprise);
 }
