@@ -2,21 +2,22 @@
 // http://thrivingkings.com/apprise
 //
 // Button text added by Adam Bezulski
-//
 // Cached jQuery variables, position center added by Josiah Ruddell
+// Callback customization added by Willi Richert
 
 function apprise(string, args, callback) {
     var default_args =
 		{
 		    'confirm': false, 		// Ok and Cancel buttons
-		    'verify': false, 	// Yes and No buttons
+		    'verify': false, 	    // Yes and No buttons
 		    'input': false, 		// Text input (can be true or string for default text)
-		    'animate': false, 	// Groovy animation (can true or number, default is 400)
-		    'textOk': 'Ok', 	// Ok button default text
+            'domContext': false,    // if true, the input to the callback is the inner DOM element
+		    'animate': false, 	    // Groovy animation (can true or number, default is 400)
+		    'textOk': 'Ok', 	    // Ok button default text
 		    'textCancel': 'Cancel', // Cancel button default text
-		    'textYes': 'Yes', 	// Yes button default text
-		    'textNo': 'No', 	// No button default text
-		    'position': 'center',// position center (y-axis) any other option will default to 100 top
+		    'textYes': 'Yes', 	    // Yes button default text
+		    'textNo': 'No', 	    // No button default text
+		    'position': 'center',   // position center (y-axis) any other option will default to 100 top
             'initCallback': function($inner) {} // this function is called immediately after DOM manipulation is finished
 		}
 
@@ -32,12 +33,12 @@ function apprise(string, args, callback) {
     }
 
     var aHeight = $(document).height(),
-		aWidth = $(document).width(),
-		apprise = $('<div class="appriseOuter"></div>'),
-		overlay = $('<div class="appriseOverlay" id="aOverlay"></div>'),
-		inner = $('<div class="appriseInner"></div>'),
-        buttons = $('<div class="aButtons"></div>'),
-		posTop = 100;
+	aWidth = $(document).width(),
+	apprise = $('<div class="appriseOuter"></div>'),
+	overlay = $('<div class="appriseOverlay" id="aOverlay"></div>'),
+	inner = $('<div class="appriseInner"></div>'),
+    buttons = $('<div class="aButtons"></div>'),
+	posTop = 100;
 
     overlay.css({ height: aHeight, width: aWidth })
 		.appendTo('body')
@@ -99,7 +100,8 @@ function apprise(string, args, callback) {
 
 
     $(document).keydown(function (e) {
-        if (overlay.is(':visible')) {
+        if (overlay.is(':visible')) 
+        {
             if (e.keyCode == 13)
             { $('.aButtons > button[value="ok"]').click(); }
             if (e.keyCode == 27)
@@ -107,30 +109,48 @@ function apprise(string, args, callback) {
         }
     });
 
-    var aText = $('.aTextbox').val();
-    if (!aText) { aText = false; }
-    $('.aTextbox').keyup(function ()
-    { aText = $(this).val(); });
-
     $('.aButtons > button').click(function () {
-        overlay.remove();
-        apprise.remove();
         if (callback) {
             $(this).text("");
             var wButton = $(this).attr("value");
-            if (wButton == 'ok') {
-                if (args) {
-                    if (args['input']) { callback(aText); }
-                    else { callback(true); }
+            if (wButton == 'ok') 
+            {
+                if (args) 
+                {
+                    if (args['input']) 
+                    { 
+                        if (args['domContext'])
+                        {
+                            callback(inner); 
+                        } 
+                        else
+                        {
+                            var aText = $('.aTextbox').val();
+                            if (!aText) 
+                            { 
+                                aText = false; 
+                            }
+                            callback(aText); 
+                        }
+                    }
+                    else 
+                    { 
+                        callback(true); 
+                    }
                 }
-                else {
+                else 
+                {
                     callback(true); 
                 }
             }
-            else if (wButton == 'cancel') {
+            else if (wButton == 'cancel') 
+            {
                 callback(false); 
             }
         }
+
+        overlay.remove();
+        apprise.remove();
     });
 
     args['initCallback'](apprise);
