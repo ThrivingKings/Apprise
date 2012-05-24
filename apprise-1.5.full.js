@@ -46,31 +46,30 @@ function apprise(string, args, callback) {
     if (args) {
         if (args['input']) {
             if (typeof (args['input']) == 'string') {
-                inner.append('<div class="aInput"><input type="text" class="aTextbox" t="aTextbox" value="' + args['input'] + '" /></div>');
+                inner.append('<div class="aInput"><div class="aError"><span id="aErrorMessage"></span></div><input type="text" class="aTextbox" t="aTextbox" value="' + args['input'] + '" /></div>');
             }
             if (typeof (args['input']) == 'object') {
                 inner.append($('<div class="aInput"></div>').append(args['input']));
             }
             else {
-                inner.append('<div class="aInput"><input type="text" class="aTextbox" t="aTextbox" /></div>');
+                inner.append('<div class="aInput"><div class="aError"><span id="aErrorMessage"></span></div><input type="text" class="aTextbox" t="aTextbox" /></div>');
             }
-            $('.aTextbox').focus();
         }
     }
 
     inner.append(buttons);
     if (args) {
         if (args['confirm'] || args['input']) {
-            buttons.append('<button value="ok">' + args['textOk'] + '</button>');
+            buttons.append('<button class="aOkButton" value="ok">' + args['textOk'] + '</button>');
             buttons.append('<button value="cancel">' + args['textCancel'] + '</button>');
         }
         else if (args['verify']) {
-            buttons.append('<button value="ok">' + args['textYes'] + '</button>');
+            buttons.append('<button class="aOkButton" value="ok">' + args['textYes'] + '</button>');
             buttons.append('<button value="cancel">' + args['textNo'] + '</button>');
         }
-        else { buttons.append('<button value="ok">' + args['textOk'] + '</button>'); }
+        else { buttons.append('<button class="aOkButton" value="ok">' + args['textOk'] + '</button>'); }
     }
-    else { buttons.append('<button value="ok">Ok</button>'); }
+    else { buttons.append('<button class="aOkButton" value="ok">Ok</button>'); }
 
     // position after adding buttons
 
@@ -102,8 +101,40 @@ function apprise(string, args, callback) {
 
     var aText = $('.aTextbox').val();
     if (!aText) { aText = false; }
-    $('.aTextbox').keyup(function ()
-    { aText = $(this).val(); });
+    
+    var validator = false;
+    var validState = true;
+    if(args && args['input'] && args['validation']){
+        validator = args['validation'];        
+        validateATextbox();
+    }
+
+    function validateATextbox(){
+            var validationResult = validator($('.aTextbox').val());
+            if(validationResult == 'true'){
+                    aText = $('.aTextbox').val();
+                    validState = true;
+                    $('.aTextbox').removeClass('aInvalid');
+                    $('.aOkButton').removeAttr("disabled");
+                    $('#aErrorMessage').text('');
+            }else{
+                    aText = '';
+                    validState = false;
+                    $('.aTextbox').addClass('aInvalid');
+                    $('.aOkButton').attr("disabled", "disabled");
+                    $('#aErrorMessage').text(validationResult);
+            }
+            //console.log(validState);
+    }
+
+    $('.aTextbox').keyup(function () { 
+            if(validator==false){
+                    //just assign the value
+                    aText = $(this).val(); 
+            }else{
+                    validateATextbox()
+            }
+    });
 
     $('.aButtons > button').click(function () {
         overlay.remove();
@@ -113,8 +144,19 @@ function apprise(string, args, callback) {
             var wButton = $(this).attr("value");
             if (wButton == 'ok') {
                 if (args) {
-                    if (args['input']) { callback(aText); }
-                    else { callback(true); }
+                    if (args['input']) {
+                        if(validator==false){
+                            callback(aText); 
+                        }else{
+                            if(validState==true){
+                                callback(aText);
+                            }/*else{
+                                console.log('Apprise input contained invalid text');
+                            }*/
+                        } 
+                    } else { 
+                            callback(true); 
+                    }
                 }
                 else {
                     callback(true); 
@@ -125,4 +167,8 @@ function apprise(string, args, callback) {
             }
         }
     });
+
+    if(args && args['input'] ){
+        $('.aTextbox').focus();
+    }
 }

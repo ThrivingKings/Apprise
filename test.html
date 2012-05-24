@@ -1,0 +1,51 @@
+<html>
+        <head>
+                <title>Apprise Test Page</title>
+                <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+                <script type="text/javascript" src="apprise-1.5.full.js"></script>
+                <link rel="stylesheet" href="apprise.css" type="text/css" />
+
+                <script>
+                    $(document).ready(function(){
+                        $("#plainAlert").click(function(event){
+                            alert("Jquery seems to be working properly");
+                        });
+                        $("#appriseAlert").click(function(event){
+                            apprise("Apprise seems to be working properly");
+                        });
+                        $("#appriseAlertInput").click(function(event){
+                            apprise("What's your name?", 
+                                {'input':true},
+                                function(value){
+                                    apprise("Pleased to meet you " + value);
+                                });
+                        });
+                        $("#appriseAlertValidatedInput").click(function(event){
+                                apprise("What's your name?", {
+                                        'input':'test', 
+                                        'validation':function(value){
+                                                if(value=='test'){
+                                                        return 'true';
+                                                }else{
+                                                        return 'type "test" in the box';
+                                                }
+                                        }},
+                                        function(value){
+                                            apprise("Pleased to meet you " + value);
+                                        }
+                                );
+                        });
+                    });
+                </script>
+        </head>
+
+        <body> 
+                <h1>Apprise Test Page</h1>
+                <ul>
+                    <li><button id="plainAlert">Plain Alert</button></li>
+                    <li><button id="appriseAlert">Apprise Alert</button></li>
+                    <li><button id="appriseAlertInput">Apprise Alert with Text Input</button></li>
+                    <li><button id="appriseAlertValidatedInput">Apprise Alert with Validated Text Input</button></li>
+                </ul>
+        </body>
+</html>
