@@ -11,6 +11,7 @@ function apprise(string, args, callback) {
 		    'confirm': false, 		// Ok and Cancel buttons
 		    'verify': false, 	// Yes and No buttons
 		    'input': false, 		// Text input (can be true or string for default text)
+		    'buttons' : false,  // Specify manual buttons + return string for each buttons
 		    'animate': false, 	// Groovy animation (can true or number, default is 400)
 		    'textOk': 'Ok', 	// Ok button default text
 		    'textCancel': 'Cancel', // Cancel button default text
@@ -60,7 +61,13 @@ function apprise(string, args, callback) {
 
     inner.append(buttons);
     if (args) {
-        if (args['confirm'] || args['input']) {
+        if (typeof(args['buttons']) == 'object') {
+            for(var buttonName in args['buttons']){
+                var buttonValue = args['buttons'][buttonName];
+                buttons.append('<button value="'+buttonValue+'">' + buttonName + '</button>');
+            }
+		}
+        else if (args['confirm'] || args['input']) {
             buttons.append('<button value="ok">' + args['textOk'] + '</button>');
             buttons.append('<button value="cancel">' + args['textCancel'] + '</button>');
         }
@@ -122,6 +129,9 @@ function apprise(string, args, callback) {
             }
             else if (wButton == 'cancel') {
                 callback(false); 
+            }
+            else {
+                callback(wButton); 
             }
         }
     });
