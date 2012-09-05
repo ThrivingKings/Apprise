@@ -24,8 +24,8 @@ function apprise(string, args, callback) {
         { if (typeof args[index] == "undefined") args[index] = default_args[index]; }
     }
 
-    var aHeight = $(document).height(),
-		aWidth = $(document).width(),
+    var aHeight = $(window).height(),
+		aWidth = $(window).width(),
 		apprise = $('<div class="appriseOuter"></div>'),
 		overlay = $('<div class="appriseOverlay" id="aOverlay"></div>'),
 		inner = $('<div class="appriseInner"></div>'),
