@@ -9,14 +9,14 @@ function apprise(string, args, callback) {
     var default_args =
 		{
 		    'confirm': false, 		// Ok and Cancel buttons
-		    'verify': false, 	// Yes and No buttons
+		    'verify': false, 		// Yes and No buttons
 		    'input': false, 		// Text input (can be true or string for default text)
-		    'animate': false, 	// Groovy animation (can true or number, default is 400)
-		    'textOk': 'Ok', 	// Ok button default text
+		    'animate': false, 		// Groovy animation (can true or number, default is 400)
+		    'textOk': 'Ok', 		// Ok button default text
 		    'textCancel': 'Cancel', // Cancel button default text
-		    'textYes': 'Yes', 	// Yes button default text
-		    'textNo': 'No', 	// No button default text
-		    'position': 'center'// position center (y-axis) any other option will default to 100 top
+		    'textYes': 'Yes', 		// Yes button default text
+		    'textNo': 'No', 		// No button default text
+		    'position': 'center'	// position center (y-axis) any other option will default to 100 top
 		}
 
     if (args) {
@@ -29,9 +29,8 @@ function apprise(string, args, callback) {
 		apprise = $('<div class="appriseOuter"></div>'),
 		overlay = $('<div class="appriseOverlay" id="aOverlay"></div>'),
 		inner = $('<div class="appriseInner"></div>'),
-        buttons = $('<div class="aButtons"></div>'),
-		posTop = 100;
-
+        buttons = $('<div class="aButtons"></div>');
+    
     overlay.css({ height: aHeight, width: aWidth })
 		.appendTo('body')
         .fadeIn(100,function(){$(this).css('filter','alpha(opacity=70)');});
@@ -79,6 +78,8 @@ function apprise(string, args, callback) {
     if (args) {
         if (args['position'] && args['position'] === 'center') {
             posTop = (aHeight - apprise.height()) / 2;
+        } else if(args['position'] && args['position'].indexOf("px") != -1){
+        	posTop = args['position'];
         }
 
         if (args['animate']) {
