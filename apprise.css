@@ -3,8 +3,10 @@
 	position:fixed;
 	top:0;
 	left:0;
-	background:rgba(0, 0, 0, 0.3);
-	display:none;
+	background-color: #000;
+        zoom: 1;
+	filter: alpha(opacity = 30);
+        opacity: 0.3;
 	}
 .appriseOuter
 	{
