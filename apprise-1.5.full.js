@@ -6,6 +6,18 @@
 // Cached jQuery variables, position center added by Josiah Ruddell
 
 function apprise(string, args, callback) {
+
+    // set button/input focus
+    var _setFocus = function() {
+        if (args && args['input']) {
+            $('.aTextbox').focus();
+        }
+        else {
+            // this logic can be expanded upon, if so desired
+            buttons.find('button').first().focus();
+        }
+    };
+
     var default_args =
 		{
 		    'confirm': false, 		// Ok and Cancel buttons
@@ -54,7 +66,6 @@ function apprise(string, args, callback) {
             else {
                 inner.append('<div class="aInput"><input type="text" class="aTextbox" t="aTextbox" /></div>');
             }
-            $('.aTextbox').focus();
         }
     }
 
@@ -84,11 +95,11 @@ function apprise(string, args, callback) {
         if (args['animate']) {
             var aniSpeed = args['animate'];
             if (isNaN(aniSpeed)) { aniSpeed = 400; }
-            apprise.css('top', '-200px').show().animate({ top: posTop }, aniSpeed);
+            apprise.css('top', '-200px').show().animate({ top: posTop }, aniSpeed, function() { _setFocus(); });
         }
-        else { apprise.css('top', posTop).fadeIn(200); }
+        else { apprise.css('top', posTop).fadeIn(200, function() { _setFocus(); }); }
     }
-    else { apprise.css('top', posTop).fadeIn(200); }
+    else { apprise.css('top', posTop).fadeIn(200, function() { _setFocus(); }); }
 
 
     $(document).keydown(function (e) {
