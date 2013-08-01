@@ -8,7 +8,9 @@
 function apprise(string, args, callback) {
 
     // set button/input focus
+    var _activeElement;
     var _setFocus = function() {
+        _activeElement = document.activeElement;
         if (args && args['input']) {
             $('.aTextbox').focus();
         }
@@ -119,6 +121,7 @@ function apprise(string, args, callback) {
     $('.aButtons > button').click(function () {
         overlay.remove();
         apprise.remove();
+        $(_activeElement).focus();
         if (callback) {
             $(this).text("");
             var wButton = $(this).attr("value");
