@@ -12,12 +12,24 @@ function apprise(string, args, callback) {
 		    'verify': false, 	// Yes and No buttons
 		    'input': false, 		// Text input (can be true or string for default text)
 		    'animate': false, 	// Groovy animation (can true or number, default is 400)
+//      ~ Added: ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+            'textCustom' : 'Destroy',  // Ok button default text
 		    'textOk': 'Ok', 	// Ok button default text
 		    'textCancel': 'Cancel', // Cancel button default text
 		    'textYes': 'Yes', 	// Yes button default text
 		    'textNo': 'No', 	// No button default text
 		    'position': 'center'// position center (y-axis) any other option will default to 100 top
 		}
+
+//      ~ Added: ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+        // You can use the following styles for the custom button (or make up your own:)
+        //  #buttonCustomRed
+        //  #buttonCustomGreen
+        //  #buttonCustomBlue
+
+//      ~ Added: ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+    var customStyleId = 'id="buttonCustomRed"';
+
 
     if (args) {
         for (var index in default_args)
@@ -41,7 +53,7 @@ function apprise(string, args, callback) {
     inner.append(string)
 		.appendTo(apprise);
 
-    
+
 
     if (args) {
         if (args['input']) {
@@ -61,8 +73,15 @@ function apprise(string, args, callback) {
     inner.append(buttons);
     if (args) {
         if (args['confirm'] || args['input']) {
-            buttons.append('<button value="ok">' + args['textOk'] + '</button>');
-            buttons.append('<button value="cancel">' + args['textCancel'] + '</button>');
+//      ~ Added / Changed: ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+            var textToFind = args['textCustom'].toLowerCase();
+            if(string.indexOf(textToFind) != -1){
+                $('.aButtons').append('<button ' + customStyleId + ' value="ok">'+args['textCustom']+'</button>');
+                $('.aButtons').append('<button value="cancel">'+args['textCancel']+'</button>');
+            }else{
+                $('.aButtons').append('<button value="ok">'+args['textOk']+'!</button>');
+                $('.aButtons').append('<button value="cancel">'+args['textCancel']+'</button>');
+            }
         }
         else if (args['verify']) {
             buttons.append('<button value="ok">' + args['textYes'] + '</button>');
@@ -117,11 +136,11 @@ function apprise(string, args, callback) {
                     else { callback(true); }
                 }
                 else {
-                    callback(true); 
+                    callback(true);
                 }
             }
             else if (wButton == 'cancel') {
-                callback(false); 
+                callback(false);
             }
         }
     });

@@ -59,6 +59,30 @@
 	{
 	color:#d85054;
 	}
+.appriseInner #buttonCustomRed
+	{
+  	color: red;
+	}
+.appriseInner #buttonCustomRed:hover
+	{
+  	color: #9e0014;
+	}
+.appriseInner #buttonCustomBlue
+	{
+  	color: blue;
+	}
+.appriseInner #buttonCustomBlue:hover
+	{
+  	color: #6fd0f4;
+	}
+.appriseInner #buttonCustomGreen
+	{
+  	color: green;
+	}
+.appriseInner #buttonCustomGreen:hover
+	{
+  	color: #79c67a;
+	}
 .aButtons, .aInput
 	{
 	margin:20px 10px 0px 10px;
@@ -80,9 +104,9 @@
 	padding:5px 10px;
 	}
 .no-rgba  .appriseOverlay{
-	opacity: .30; 
-	filter: alpha(opacity = 30) !important; 
-	background: #000; 
+	opacity: .30;
+	filter: alpha(opacity = 30) !important;
+	background: #000;
 	zoom: 1;
 }
 .no-borderradius .appriseOuter{
@@ -101,5 +125,5 @@ top:0;
 width:100%;
 z-index:1000;
 filter:alpha(opacity=70);
-opacity:0.70; 
+opacity:0.70;
 }
