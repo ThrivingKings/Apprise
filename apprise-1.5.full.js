@@ -102,7 +102,7 @@ function apprise(string, args, callback) {
 
     var aText = $('.aTextbox').val();
     if (!aText) { aText = false; }
-    $('.aTextbox').keyup(function ()
+	$('.aTextbox').bind('keyup blur', function()
     { aText = $(this).val(); });
 
     $('.aButtons > button').click(function () {
