@@ -1,5 +1,5 @@
-Apprise
-==========
+NO LONGER SUPPORTED. USE AT YOUR OWN RISK.
+===
 
 The attractive alert alternative for jQuery
 
